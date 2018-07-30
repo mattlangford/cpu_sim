@@ -32,7 +32,7 @@ void assemble_program(const std::string& program, memory::Memory& m)
             return;
         }
 
-        LOG_DEBUG("Instruction: \"" << instruction_str << "\"");
+        LOG_DEBUG("Instruction: \"" << instruction_str << "\" (" << program_writer << ")");
         Instruction this_instruction = match(instruction_str);
 
         m.write(program_writer++, static_cast<uint8_t>(this_instruction));
@@ -48,7 +48,7 @@ void assemble_program(const std::string& program, memory::Memory& m)
         case Instruction::BNE:
         {
             memory::address_type addr = std::stoi(this_line.substr(first_space));
-            LOG_DEBUG("  Address: \"" << addr << "\"");
+            LOG_DEBUG("  Address: \"" << addr << "\" (" << program_writer << ")");
             m.write(program_writer++, addr);
             break;
         }

@@ -19,7 +19,8 @@ CPU::CPU(std::shared_ptr<memory::Memory> m)
 
 void CPU::execute_next_instruction()
 {
-    const uint8_t to_execute = static_cast<Instruction>(m_->read(program_counter_++));
+    const Instruction to_execute = static_cast<Instruction>(m_->read(program_counter_++));
+    LOG_DEBUG("Instruction (" << (program_counter_ - 1) << ") : " << to_execute)
     switch(to_execute)
     {
         case (Instruction::NOP): break;
@@ -188,7 +189,6 @@ void CPU::branch_eq(const memory::address_type addr)
 
 void CPU::branch_neq(const memory::address_type addr)
 {
-    LOG_DEBUG("regA_: " << static_cast<uint16_t>(regA_) << " regB_: " << static_cast<uint16_t>(regB_))
     if (regA_ != regB_)
     {
         program_counter_ = addr;
